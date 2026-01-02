@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "company": "Arcmat and dreamzunwired",
+        "category": "Kitchen",
+        "image": "/Images/Kitchen.png",
+        "description": "Materials and Equipment for Functional Cooking Spaces",
+        "link": "#"
+    },
+    {
+        "id": 2,
+        "company": "Arcmat and dreamzunwired",
+        "category": "Hospitality",
+        "image": "/Images/Hospitality.jpg",
+        "description": "Materials and Furniture for Customer-Focused Spaces",
+        "link": "#"
+    },
+    {
+        "id": 3,
+        "company": "Arcmat and dreamzunwired",
+        "category": "Workspaces",
+        "image": "/Images/Workspaces.png",
+        "description": "Materials and Furniture for Productive Workspaces",
+        "link": "#"
+    },
+    {
+        "id": 4,
+        "company": "Arcmat and dreamzunwired",
+        "category": "Residence",
+        "image": "/Images/Residence.png",
+        "description": "Materials, Furniture, and Finishes for Everyday Living",
+        "link": "#"
+    },
+        {
+        "id": 5,
+        "company": "Arcmat and dreamzunwired",
+        "category": "Kitchen",
+        "image": "/Images/Kitchen.png",
+        "description": "Materials and Equipment for Functional Cooking Spaces",
+        "link": "#"
+    },
+    {
+        "id": 6,
+        "company": "Arcmat and dreamzunwired",
+        "category": "Hospitality",
+        "image": "/Images/Hospitality.jpg",
+        "description": "Materials and Furniture for Customer-Focused Spaces",
+        "link": "#"
+    },
+    {
+        "id": 7,
+        "company": "Arcmat and dreamzunwired",
+        "category": "Workspaces",
+        "image": "/Images/Workspaces.png",
+        "description": "Materials and Furniture for Productive Workspaces",
+        "link": "#"
+    },
+    {
+        "id": 8,
+        "company": "Arcmat and dreamzunwired",
+        "category": "Residence",
+        "image": "/Images/Residence.png",
+        "description": "Materials, Furniture, and Finishes for Everyday Living",
+        "link": "#"
+    }
+]

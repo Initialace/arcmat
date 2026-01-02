@@ -1,0 +1,68 @@
+[
+    {
+        "title": "Dining Area",
+        "subtitle": "Minimal or classic: tables for shared moments",
+        "image": "/Images/Rectangle_1_2.png",
+        "className": "md:col-span-3"
+    },
+    {
+        "title": "The Bathroom",
+        "subtitle": "Washbasins: fresh inspiration for comfort spaces",
+        "image": "/Images/Rectangle_2.png",
+        "className": "md:col-span-3"
+    },
+    {
+        "title": "Dream Furniture",
+        "subtitle": "",
+        "image": "/Images/Rectangle_4.png",
+        "className": "md:col-span-2"
+    },
+    {
+        "title": "Award Winning",
+        "subtitle": "",
+        "image": "/Images/Rectangle_5_2.png",
+        "className": "md:col-span-2"
+    },
+    {
+        "title": "ArcMat Shop",
+        "subtitle": "Discover the latest novelties in the ArcMat Shop",
+        "image": "/Images/Rectangle_6.png",
+        "className": "md:col-span-2"
+    },
+    {
+        "title": "Soft Geometries",
+        "subtitle": "Textures, patterns, and colors to redefine every space",
+        "image": "/Images/Banner.png",
+        "className": "md:col-span-6 !auto-rows-[300px]"
+    },
+    {
+        "title": "The Office",
+        "subtitle": "Materials and Furniture for Productive Workspaces",
+        "image": "/Images/the_office.png",
+        "className": "md:col-span-3"
+    },
+    {
+        "title": "Wellness Spaces",
+        "subtitle": "Spa-inspired materials for calm interiors",
+        "image": "/Images/wellness.jpg",
+        "className": "md:col-span-3"
+    },
+    {
+        "title": "The Kitchen",
+        "subtitle": "Materials and Equipment for Functional Cooking Spaces",
+        "image": "/Images/the_kitchen.jpg",
+        "className": "md:col-span-2"
+    },
+    {
+        "title": "The Residence",
+        "subtitle": "Materials, Furniture, and Finishes for Everyday Living",
+        "image": "/Images/the_residence.png",
+        "className": "md:col-span-2"
+    },
+    {
+        "title": "Hospitality & Retail",
+        "subtitle": "Materials and Furniture for Customer-Focused Spaces",
+        "image": "/Images/the hospitality.jpg",
+        "className": "md:col-span-2"
+    }
+]
