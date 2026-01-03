@@ -2,6 +2,7 @@ import "./globals.css";
 import React from 'react';
 import ClientProviders from "@/components/ClientProviders";
 import { MobileMenu } from "@/components/navbar/mobile-menu";
+import Toast from "@/components/ui/Toast";
 import { Inter } from 'next/font/google';
 
 const inter = Inter({
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
         <React.Suspense fallback={null}>
           <ClientProviders>
             <MobileMenu />
+            <Toast />
             {children}
           </ClientProviders>
         </React.Suspense>

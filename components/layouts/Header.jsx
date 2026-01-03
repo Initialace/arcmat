@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useAuth } from '@/hooks/useAuth';
 import Cookies from 'js-cookie';
-import { LogOut, User, ChevronDown, Heart, Folder, ShoppingCart, LayoutDashboard, Menu } from 'lucide-react';
+import { LogOut, User, ChevronDown, Heart, Folder, ShoppingCart, LayoutDashboard, Menu, Search, Camera } from 'lucide-react';
 import { useSidebarStore } from '@/store/useSidebarStore';
 
 const Header = ({ variant = 'default' }) => {
@@ -81,14 +81,14 @@ const Header = ({ variant = 'default' }) => {
                         <Link href="/"
                             className='flex items-center gap-2'>
                             <Image
-                                src="/Icons/Logo.svg"
+                                src="/Icons/arcmatlogo.svg"
                                 alt="ArcMat Logo"
                                 width={30}
                                 height={30}
                                 className="object-contain h-8 w-auto"
                                 priority
                             />
-                            <span className='text-[18px] font-bold text-[#4D4E58] pt-4.5'>ARCMAT</span>
+
                         </Link>
                     </div>
                 </div>
@@ -99,7 +99,7 @@ const Header = ({ variant = 'default' }) => {
                         <div className="relative w-full group">
                             <div className="flex items-center w-full bg-gray-100/80 hover:bg-gray-100 transition-colors rounded-full px-4 h-11 border border-transparent focus-within:border-gray-300 focus-within:bg-white focus-within:shadow-sm">
                                 <div className="flex-shrink-0 mr-3 opacity-50">
-                                    <Image src="/Icons/header_searchbar.svg" width={18} height={18} alt="Search" />
+                                    <Search size={18} />
                                 </div>
 
                                 <input
@@ -110,7 +110,7 @@ const Header = ({ variant = 'default' }) => {
                                 />
 
                                 <div className="flex-shrink-0 ml-3 cursor-pointer hover:opacity-80 transition-opacity">
-                                    <Image src="/Icons/Camera.svg" alt="Camera Search" width={22} height={22} className="opacity-60" />
+                                    <Camera size={22} className="opacity-60" />
                                 </div>
                             </div>
                         </div>
@@ -140,9 +140,11 @@ const Header = ({ variant = 'default' }) => {
                             </>
                         )}
                         {(!user || user.role !== 'vendor') && (
-                            <button className='p-2 hover:bg-gray-50 rounded-full transition-colors'>
-                                <ShoppingCart size={22} className="text-gray-600" />
-                            </button>
+                            <Link href="/cart">
+                                <button className='p-2 hover:bg-gray-50 rounded-full transition-colors'>
+                                    <ShoppingCart size={22} className="text-gray-600" />
+                                </button>
+                            </Link>
                         )}
                     </div>
 

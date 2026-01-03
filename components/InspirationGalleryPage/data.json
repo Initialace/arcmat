@@ -1,0 +1,130 @@
+[
+    {
+        "id": 1,
+        "company": "Kitchen Master",
+        "category": "Kitchen",
+        "image": "/Images/Kitchen.png",
+        "description": "Premium kitchen design with marble islands.",
+        "link": "#"
+    },
+    {
+        "id": 2,
+        "company": "SleepWell Designs",
+        "category": "Bedroom",
+        "image": "/Images/Residence.png",
+        "description": "Cozy bedroom with ambient lighting.",
+        "link": "#"
+    },
+    {
+        "id": 3,
+        "company": "Modern Living",
+        "category": "Furniture",
+        "image": "/Images/Workspaces.png",
+        "description": "Ergonomic furniture for modern homes.",
+        "link": "#"
+    },
+    {
+        "id": 4,
+        "company": "Artistic Decor",
+        "category": "Decor",
+        "image": "/Images/Hospitality.jpg",
+        "description": "Unique decor pieces for every room.",
+        "link": "#"
+    },
+    {
+        "id": 5,
+        "company": "Lumina",
+        "category": "Lighting",
+        "image": "https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?w=800&q=80",
+        "description": "Architectural lighting solutions.",
+        "link": "#"
+    },
+    {
+        "id": 6,
+        "company": "Pure Finishes",
+        "category": "Finishes",
+        "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=80",
+        "description": "High-end wall and floor finishes.",
+        "link": "#"
+    },
+    {
+        "id": 7,
+        "company": "AquaLuxury",
+        "category": "Bathware",
+        "image": "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80",
+        "description": "Modern bathware and spa solutions.",
+        "link": "#"
+    },
+    {
+        "id": 8,
+        "company": "Elite Kitchens",
+        "category": "Kitchen",
+        "image": "https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=800&q=80",
+        "description": "Traditional kitchen aesthetics with modern tech.",
+        "link": "#"
+    },
+    {
+        "id": 9,
+        "company": "Dream Bedrooms",
+        "category": "Bedroom",
+        "image": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80",
+        "description": "Minimalist bedroom layout.",
+        "link": "#"
+    },
+    {
+        "id": 10,
+        "company": "Global Furniture",
+        "category": "Furniture",
+        "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80",
+        "description": "Sustainable wood furniture collections.",
+        "link": "#"
+    },
+    {
+        "id": 11,
+        "company": "Home Accents",
+        "category": "Decor",
+        "image": "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&q=80",
+        "description": "Vibrant decor for seasonal refreshes.",
+        "link": "#"
+    },
+    {
+        "id": 12,
+        "company": "Bright Spaces",
+        "category": "Lighting",
+        "image": "https://images.unsplash.com/photo-1550985616-10810253b84d?w=800&q=80",
+        "description": "Smart lighting for office setups.",
+        "link": "#"
+    },
+    {
+        "id": 13,
+        "company": "Texture Co.",
+        "category": "Finishes",
+        "image": "https://images.unsplash.com/photo-1604709177225-055f99402ea3?w=800&q=80",
+        "description": "Textured finishes for feature walls.",
+        "link": "#"
+    },
+    {
+        "id": 14,
+        "company": "Clean Bath",
+        "category": "Bathware",
+        "image": "https://images.unsplash.com/photo-1620626011761-996317b8d101?w=800&q=80",
+        "description": "Compact bathroom designs.",
+        "link": "#"
+    },
+    {
+        "id": 15,
+        "company": "Culinary Hub",
+        "category": "Kitchen",
+        "image": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80",
+        "description": "Spacious kitchens for foodies.",
+        "link": "#"
+    },
+    {
+        "id": 16,
+        "company": "Rest & Relax",
+        "category": "Bedroom",
+        "image": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80",
+        "description": "Luxury suites with panoramic views.",
+        "link": "#"
+    }
+]

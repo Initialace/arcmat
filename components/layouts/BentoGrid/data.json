@@ -1,32 +1,32 @@
 [
     {
         "title": "Dining Area",
-        "subtitle": "Minimal or classic: tables for shared moments",
-        "image": "/Images/Rectangle_1_2.png",
+        "subtitle": "Furniture, Fixtures, and Finishes for Dining Environments",
+        "image": "/Images/dining.png",
         "className": "md:col-span-3"
     },
     {
         "title": "The Bathroom",
-        "subtitle": "Washbasins: fresh inspiration for comfort spaces",
-        "image": "/Images/Rectangle_2.png",
+        "subtitle": "Materials, Fixtures, and Finishes for Functional Bathroom Space",
+        "image": "/Images/bathroom.png",
         "className": "md:col-span-3"
     },
     {
-        "title": "Dream Furniture",
-        "subtitle": "",
-        "image": "/Images/Rectangle_4.png",
+        "title": "The Furniture",
+        "subtitle": "Architectural Furniture for Living, Working, and Commercial Spaces",
+        "image": "/Images/Rectangle_4.jpg",
         "className": "md:col-span-2"
     },
     {
-        "title": "Award Winning",
-        "subtitle": "",
-        "image": "/Images/Rectangle_5_2.png",
+        "title": "The Lighting",
+        "subtitle": "Architectural Lighting Solutions for Interior and Exterior Spaces",
+        "image": "/Images/lighting-2.png",
         "className": "md:col-span-2"
     },
     {
-        "title": "ArcMat Shop",
-        "subtitle": "Discover the latest novelties in the ArcMat Shop",
-        "image": "/Images/Rectangle_6.png",
+        "title": "The Decor",
+        "subtitle": "Decorative Elements for Architectural Spaces",
+        "image": "/Images/Rectangle_6.jpg",
         "className": "md:col-span-2"
     },
     {

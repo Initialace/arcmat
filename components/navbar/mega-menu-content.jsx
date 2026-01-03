@@ -20,7 +20,7 @@ export const MegaMenuContent = ({ activeCategory, hoveredCategory, image }) => {
                             {column.map((link) => (
                                 <li key={link}>
                                     <Link
-                                        href="#"
+                                        href="/productlist"
                                         className="text-sm text-[hsl(20,10%,15%)]/80 hover:text-[hsl(20,10%,15%)] transition-colors block font-normal"
                                     >
                                         {link}

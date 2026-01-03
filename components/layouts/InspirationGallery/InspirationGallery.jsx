@@ -65,6 +65,15 @@ const InspirationGallery = () => {
                         No items found in this category.
                     </div>
                 )}
+
+                <div className="flex gap-4 flex-wrap justify-center mt-8">
+                    <Button
+                        text='View All'
+                        href="/inspiration-page"
+                        className="px-8 py-3 bg-[#e18e60] text-[16px] text-white hover:bg-white hover:text-[#e18e60] hover:border-[#e18e60] border hover:scale-105 transition-all"
+                    />
+
+                </div>
             </Container>
 
             {selectedProduct && (

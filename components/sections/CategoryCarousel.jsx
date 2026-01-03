@@ -9,14 +9,14 @@ import Container from '../ui/Container';
 
 const categories = [
     { name: 'NEW', image: '/Category/Rectangle 24.png' },
-    { name: 'CONSTRUCTION', image: '/Category/Rectangle 25.png' },
-    { name: 'FINISHES', image: '/Category/Rectangle 26.png' },
-    { name: 'LIGHTING', image: '/Category/Rectangle 27.png' },
-    { name: 'FURNITURE', image: '/Category/Rectangle 28.png' },
-    { name: 'DECOR', image: '/Category/Rectangle 29.png' },
-    { name: 'BATHWARE', image: '/Category/Rectangle 30.png' },
+    { name: 'CONSTRUCTION', image: '/Category/construction.jpg' },
+    { name: 'FINISHES', image: '/Category/finish.jpg' },
+    { name: 'LIGHTING', image: '/Category/light.jpg' },
+    { name: 'FURNITURE', image: '/Category/Furniture.jpg' },
+    { name: 'DECOR', image: '/Category/decor.jpg' },
+    { name: 'BATHWARE', image: '/Category/bathware.jpg' },
     { name: 'SMART', image: '/Category/Rectangle 31.png' },
-    { name: 'APPLIANCES', image: '/Category/Rectangle 32.png' },
+    { name: 'APPLIANCES', image: '/Category/appliances.jpg' },
 ];
 
 const CategoryCarousel = () => {
@@ -56,7 +56,7 @@ const CategoryCarousel = () => {
                 >
                     {categories.map((cat, index) => (
                         <SwiperSlide key={index} className="!flex flex-col items-center justify-center group cursor-pointer pt-2">
-                            <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-4xl overflow-hidden bg-linear-to-br from-white/90 to-[#F5F5F0]/60 backdrop-blur-[2px] border border-white/60 shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex items-center justify-center mb-4 transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] group-hover:border-white/90">
+                            <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-4xl overflow-hidden bg-linear-to-br from-white/90 to-[#F5F5F0]/60 backdrop-blur-[2px] border-2 border-gray-50  shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex items-center justify-center mb-4 transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] group-hover:border-gray-50">
                                 <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10" />
                                 <Image
                                     src={cat.image}

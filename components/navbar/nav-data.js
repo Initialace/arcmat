@@ -17,7 +17,7 @@ export const navItems = [
     },
     {
         name: "Construction",
-        image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400",
+        image: "/mega-Images/construction.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -40,7 +40,7 @@ export const navItems = [
     },
     {
         name: "Finishes",
-        image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?w=400",
+        image: "/mega-Images/Finishes.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -63,7 +63,7 @@ export const navItems = [
     },
     {
         name: "Door & Windows",
-        image: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=400",
+        image: "/mega-Images/Door & Windows.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -86,7 +86,7 @@ export const navItems = [
     },
     {
         name: "Lighting",
-        image: "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400",
+        image: "/mega-Images/Lighting.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -109,7 +109,7 @@ export const navItems = [
     },
     {
         name: "Furniture",
-        image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400",
+        image: "/mega-Images/Furniture.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -164,7 +164,7 @@ export const navItems = [
     },
     {
         name: "Appliances",
-        image: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400",
+        image: "/mega-Images/Appliances.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -187,7 +187,7 @@ export const navItems = [
     },
     {
         name: "Decor",
-        image: "https://images.unsplash.com/photo-1615529328331-f8917597711f?w=400",
+        image: "/mega-Images/Decor.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -210,7 +210,7 @@ export const navItems = [
     },
     {
         name: "Bathware",
-        image: "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400",
+        image: "/mega-Images/Bathware.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -233,7 +233,7 @@ export const navItems = [
     },
     {
         name: "Sustainable",
-        image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400",
+        image: "/mega-Images/Sustainable.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -256,7 +256,7 @@ export const navItems = [
     },
     {
         name: "Smart",
-        image: "https://images.unsplash.com/photo-1558002038-1055907df827?w=400",
+        image: "/mega-Images/Smart.jpg",
         hasDropdown: true,
         categories: [
             {
@@ -271,25 +271,115 @@ export const navItems = [
     },
     {
         name: "Protection",
-        image: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400",
+        image: "/mega-Images/Protection.jpg",
         hasDropdown: true,
         categories: [
             {
-                name: "Safety Gear",
+                name: "Waterproofing Systems",
                 hasSubmenu: true,
                 links: [
-                    ["Helmets", "Safety Shoes", "Gloves", "Goggles"],
-                    ["Masks", "Ear Muffs", "Safety Harnesses", "Vests"]
+                    [
+                        "Liquid Membranes",
+                        "Elastomeric Coatings",
+                        "Cementitious Coatings",
+                        "Bituminous Membranes"
+                    ],
+                    [
+                        "Basement Waterproofing",
+                        "Terrace Waterproofing",
+                        "Wet Area Solutions"
+                    ]
                 ]
             },
             {
-                name: "Fire Safety",
+                name: "Thermal Insulation",
                 hasSubmenu: true,
                 links: [
-                    ["Fire Extinguishers", "Smoke Detectors", "Sprinklers", "Fire Alarms"],
-                    ["Signage", "Hydrants", "Emergency Lights", "Blankets"]
+                    [
+                        "XPS Insulation",
+                        "Glass Wool",
+                        "Reflective Foil",
+                        "PU Foam"
+                    ],
+                    [
+                        "Roof Insulation",
+                        "Wall Insulation",
+                        "Floor Insulation Panels"
+                    ]
+                ]
+            },
+            {
+                name: "Soundproofing & Acoustics",
+                hasSubmenu: true,
+                links: [
+                    [
+                        "Acoustic Foam Panels",
+                        "Gypsum Boards",
+                        "Acoustic Backing"
+                    ],
+                    [
+                        "Vibration Isolators",
+                        "Underlayment Systems"
+                    ]
+                ]
+            },
+            {
+                name: "Pest & Termite Control",
+                hasSubmenu: true,
+                links: [
+                    [
+                        "Anti-Termite Liquids",
+                        "Soil Treatment Chemicals"
+                    ],
+                    [
+                        "Anti-Termite Plywood",
+                        "Preventive Treatments"
+                    ]
+                ]
+            },
+            {
+                name: "Structural Protection",
+                hasSubmenu: true,
+                links: [
+                    [
+                        "Shock Absorbers",
+                        "Base Isolators"
+                    ],
+                    [
+                        "Anti-Crack Compounds",
+                        "Seismic Protection Materials"
+                    ]
+                ]
+            },
+            {
+                name: "Healthy Wall Finishes",
+                hasSubmenu: true,
+                links: [
+                    [
+                        "Lime Plasters",
+                        "Clay-Based Finishes"
+                    ],
+                    [
+                        "Low-VOC Coatings",
+                        "Breathable Wall Systems"
+                    ]
+                ]
+            },
+            {
+                name: "Protective Coatings",
+                hasSubmenu: true,
+                links: [
+                    [
+                        "Anti-Carbonation Coatings",
+                        "RCC Protection"
+                    ],
+                    [
+                        "UV-Resistant Coatings",
+                        "Anti-Corrosion Coatings"
+                    ]
                 ]
             }
         ]
-    },
+    }
+
 ];

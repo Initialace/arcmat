@@ -42,7 +42,17 @@ export default function RegisterForm() {
 
   const onSubmit = (data) => {
     const assignedRole = activeTab === 'professionals' ? 'customer' : 'vendor';
-    registerMutation.mutate({ ...data, role: assignedRole });
+
+    // Add www. prefix to profile URL if it exists and doesn't already have it
+    let profileUrl = data.profile;
+    if (profileUrl && profileUrl.trim() !== '') {
+      // Remove any existing protocol or www. to avoid duplication
+      profileUrl = profileUrl.replace(/^(https?:\/\/)?(www\.)?/, '');
+      // Add www. prefix
+      profileUrl = 'www.' + profileUrl;
+    }
+
+    registerMutation.mutate({ ...data, profile: profileUrl, role: assignedRole });
   };
 
   return (
