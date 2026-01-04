@@ -16,7 +16,7 @@ const WeeklySelections = () => {
     const handleViewMore = () => {
         setVisibleCount((prev) => prev + 8);
     };
-
+ 
     const handleProductClick = (item) => {
         setSelectedProduct(item);
     };

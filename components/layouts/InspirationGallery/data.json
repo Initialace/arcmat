@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "company": "Arcmat and dreamzunwired",
+        "company": "Arcmat",
         "category": "Kitchen",
         "image": "/Images/Kitchen.png",
         "description": "Materials and Equipment for Functional Cooking Spaces",
@@ -9,7 +9,7 @@
     },
     {
         "id": 2,
-        "company": "Arcmat and dreamzunwired",
+        "company": "Arcmat",
         "category": "Hospitality",
         "image": "/Images/Hospitality.jpg",
         "description": "Materials and Furniture for Customer-Focused Spaces",
@@ -17,7 +17,7 @@
     },
     {
         "id": 3,
-        "company": "Arcmat and dreamzunwired",
+        "company": "Arcmat",
         "category": "Workspaces",
         "image": "/Images/Workspaces.png",
         "description": "Materials and Furniture for Productive Workspaces",
@@ -25,7 +25,7 @@
     },
     {
         "id": 4,
-        "company": "Arcmat and dreamzunwired",
+        "company": "Arcmat",
         "category": "Residence",
         "image": "/Images/Residence.png",
         "description": "Materials, Furniture, and Finishes for Everyday Living",
@@ -33,7 +33,7 @@
     },
         {
         "id": 5,
-        "company": "Arcmat and dreamzunwired",
+        "company": "Arcmat",
         "category": "Kitchen",
         "image": "/Images/Kitchen.png",
         "description": "Materials and Equipment for Functional Cooking Spaces",
@@ -41,7 +41,7 @@
     },
     {
         "id": 6,
-        "company": "Arcmat and dreamzunwired",
+        "company": "Arcmat",
         "category": "Hospitality",
         "image": "/Images/Hospitality.jpg",
         "description": "Materials and Furniture for Customer-Focused Spaces",
@@ -49,7 +49,7 @@
     },
     {
         "id": 7,
-        "company": "Arcmat and dreamzunwired",
+        "company": "Arcmat",
         "category": "Workspaces",
         "image": "/Images/Workspaces.png",
         "description": "Materials and Furniture for Productive Workspaces",
@@ -57,7 +57,7 @@
     },
     {
         "id": 8,
-        "company": "Arcmat and dreamzunwired",
+        "company": "Arcmat",
         "category": "Residence",
         "image": "/Images/Residence.png",
         "description": "Materials, Furniture, and Finishes for Everyday Living",

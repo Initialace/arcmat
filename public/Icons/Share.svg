@@ -1,9 +1,1 @@
-<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect width="28" height="28" fill="url(#pattern0_937_774)"/>
-<defs>
-<pattern id="pattern0_937_774" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0_937_774" transform="scale(0.02)"/>
-</pattern>
-<image id="image0_937_774" width="50" height="50" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADVUlEQVR4nO2YS6hNURjHFwOvASElrsJASilMZOBGHufe/f2/fa7a5/uu65lHSikMKHJFpAy8BogwMGGgzIykMGJi4DVgIo+BPNOVvFr3uJyzzrnn7rvP2teh/a9vtNY+a/3Ot9b3WMZkypQpU6ZGE0Geg+UhWG4CcgWQk8S6j1i3ANoO6MJcLhrnZS3WzUuiaIxJQ2DpAuuPWkasm3ysRaznCXqfWSeYfx0E9vegj3JtHU0mLRCCfAPLG9eIC2t9gqDb5EkYymSTjkfkoUlR5SBq/7gXgM7w7xGWe2YAQVBc8xWgM30frTtedmyMyedXjg3CwlJA1hDrbmI9QaxPq95ByOsgv3yOPxDWW0l/h4hG2HBNrGcBfQDW730FEZTB6LswlHl+QKDX+/t9GMokYjlO0A/92Tiqw3y0eatuEECuxf0uiqIh9sjECd/xQeQLs3LdIAS5Gucbm+nBcsMXAIre+GqPZiKIChDWy31CtHU02RzgEwKs3ylsX58YwgUB9GJNiFzHSJuV+7nJl4Dctd4G9HFVCB+VgwNyrtZcYrnU1/Eg6G1A9jMXFjQ3rx4WI49sqxuiEkRO9TYvCNtba1zSt4DsDYJoYr8yO+tuLxBVQI71Mm2QrVqrHQtAzgTB8tFx1ioFIZaD3iAqQFgPV50DzVVCSBdzQRNWv0e9AfQStQ5UnWMbLife26OWqB9hPW097GXzNYrGPe54FEXDwfqpzBvQ7UnWIpKWzs7OwSYNOSA7qy1eDiF3U9uMR5CKUEisnaUgzBqYRhTK78hmd7w7kf3xxrOG9IYLErBuMI6KLyy/PXbBNKpQBlJY5Y53l9a/Qfz07qmDuHnB1lZOtKq/JU1LTmZfVjrW2hqNdy669/eo5ubVw2yba42oMNuTR8ojEhBNKQXJ5XJDjWcRtU/3soZT/S4uHYuiaBQgG63V3S/EBWlL+HDn3JH5ZoBFDgizzvLgkcJc85dBiGSJjzuS7N/wCALoCh93ZIYbfm2v8cumWmvJy7SeKGPfoZgLi6wBEjJLZA2QdT13C5Ad1ohlF7EeKpocsVVwt5VWDsXqYmv9ICzvwfo5Rh+emlHShsvnu5QXg5z5L0Ao5ttahewF7znzjWAteZmWCCRTpkyZMpmU9BPtO13NIdnQvQAAAABJRU5ErkJggg=="/>
-</defs>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-share2-icon lucide-share-2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg>

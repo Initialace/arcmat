@@ -21,12 +21,12 @@ export default function Page() {
           <div className="flex flex-col gap-5 text-center items-center justify-center">
             <div className='w-full'>
               <h2 className="text-2xl sm:text-3xl lg:text-[38px] font-semibold text-gray-700 xl:whitespace-nowrap">
-                From home to work, get ideas and start designing
+                Design Smarter, Source Better.
               </h2>
             </div>
             <div className='lg:px-20'>
               <p className="text-base sm:text-lg lg:text-[23px] font-normal text-gray-600">
-                Explore catalogs, download BIM and 3D files, and shop furniture and architecture products.
+                Shop multiple categories from one trusted platform. Save time, effort, and cost—without the hassle.
               </p>
             </div>
           </div>
