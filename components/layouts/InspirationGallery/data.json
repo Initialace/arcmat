@@ -35,7 +35,7 @@
         "id": 5,
         "company": "Arcmat",
         "category": "Kitchen",
-        "image": "/Images/Kitchen.png",
+        "image": "/Images/4.png",
         "description": "Materials and Equipment for Functional Cooking Spaces",
         "link": "#"
     },
@@ -43,7 +43,7 @@
         "id": 6,
         "company": "Arcmat",
         "category": "Hospitality",
-        "image": "/Images/Hospitality.jpg",
+        "image": "/Images/5.png",
         "description": "Materials and Furniture for Customer-Focused Spaces",
         "link": "#"
     },
@@ -51,7 +51,7 @@
         "id": 7,
         "company": "Arcmat",
         "category": "Workspaces",
-        "image": "/Images/Workspaces.png",
+        "image": "/Images/9.png",
         "description": "Materials and Furniture for Productive Workspaces",
         "link": "#"
     },
@@ -59,7 +59,7 @@
         "id": 8,
         "company": "Arcmat",
         "category": "Residence",
-        "image": "/Images/Residence.png",
+        "image": "/Images/10.png",
         "description": "Materials, Furniture, and Finishes for Everyday Living",
         "link": "#"
     }
