@@ -15,7 +15,7 @@ const categories = [
     { name: 'FURNITURE', image: '/Category/Furniture.jpg' },
     { name: 'DECOR', image: '/Category/decor.jpg' },
     { name: 'BATHWARE', image: '/Category/bathware.jpg' },
-    { name: 'SMART', image: '/Category/Rectangle 31.png' },
+    { name: 'SMART', image: '/Category/smart.jpg' },
     { name: 'APPLIANCES', image: '/Category/appliances.jpg' },
 ];
 

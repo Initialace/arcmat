@@ -121,7 +121,7 @@ const Header = ({ variant = 'default' }) => {
                     {(!isDashboard || user?.role !== 'vendor') && (
                         <>
                             <button className='p-2 hover:bg-gray-50 rounded-full transition-colors hidden sm:flex'>
-                                <Image src="/Icons/Ai_icon.svg" alt="AI Tools" width={28} height={28} />
+                                <Image src="/Icons/ai_icon.png" alt="AI Tools" width={28} height={28} />
                             </button>
 
                             <div className='h-6 w-px bg-gray-200 hidden sm:block'></div>
