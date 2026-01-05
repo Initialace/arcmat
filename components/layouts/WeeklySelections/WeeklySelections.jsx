@@ -16,7 +16,7 @@ const WeeklySelections = () => {
     const handleViewMore = () => {
         setVisibleCount((prev) => prev + 8);
     };
- 
+
     const handleProductClick = (item) => {
         setSelectedProduct(item);
     };
@@ -47,7 +47,7 @@ const WeeklySelections = () => {
                 </div>
 
                 {visibleCount < selections.length && (
-                    <div className="mt-12 text-center flex gap-2 justify-center">
+                    <div className="mt-12 text-center flex gap-2 justify-center sm:flex-row flex-col">
                         <Button
                             onClick={handleViewMore}
                             className="bg-[#e09a74] hover:bg-white border-[#e09a74] border hover:text-[#e09a74] text-white font-medium py-3 px-8 h-auto shadow-sm text-lg"
