@@ -12,39 +12,39 @@ export const metadata = {
 export default function LoginPage() {
   return (
     <div className="min-h-screen flex bg-[#F5E9E2]">
-      
+
       {/* Left Section - Hero */}
       <div className="hidden lg:flex lg:w-1/2 flex-col items-center justify-between p-2 relative">
         {/* Logo - Positioned top left */}
         <div className="w-full pl-4 pt-2">
           <Logo href="/" className="self-start" />
         </div>
-        
-          <div className="flex flex-col items-center justify-start flex-1 mt-10 py-8 px-8">
+
+        <div className="flex flex-col items-center justify-start flex-1 mt-10 py-8 px-8">
           {/* Main Heading - Matched Font & Color (#4D4E58) */}
           <h1 className="text-[36px] font-semibold text-[#4D4E58] text-center leading-[50px] max-w-[500px] mb-6">
             The marketplace where architects and brands build the future together.
           </h1>
-          
+
           {/* Sub Heading - Matched Font & Color (#86868B) */}
           <p className="text-[16px] text-[#86868B] text-center leading-[24px] mb-8">
             Hundreds of Brands. One Website. Order by Midnight.
           </p>
-          
+
           {/* Illustration - Matched Dimensions (300px width) & Removed White Box */}
           <div className="mb-8">
-            <Image 
-              src={sample} 
+            <Image
+              src={sample}
               alt="Architects and brands illustration"
               width={300}              // Matched Figma width
               height={200}             // Matched Figma height
-              className="object-contain" 
+              className="object-contain"
               priority
             />
           </div>
-          
+
           {/* Trusted Brands - Removed Text & White Backgrounds */}
-          <div className="w-full flex items-center justify-center gap-10 mt-auto pb-10">
+          {/* <div className="w-full flex items-center justify-center gap-10 mt-auto pb-10">
             {[
               { name: 'Johnson Bathware', src: '/brands/johnson.svg' },
               { name: 'Somany', src: '/brands/somany.svg' },
@@ -61,7 +61,7 @@ export default function LoginPage() {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export default function LoginPage() {
         {/* Pass the form component here */}
         <LoginForm />
       </div>
-      
+
     </div>
   );
 }

@@ -63,7 +63,7 @@ export const navItems = [
     },
     {
         name: "Door & Windows",
-        image: "/mega-Images/Door & Windows.jpg",
+        image: "/mega-Images/Door and window.png",
         hasDropdown: true,
         categories: [
             {

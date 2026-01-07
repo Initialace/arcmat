@@ -4,11 +4,12 @@ import { useSidebarStore } from "@/store/useSidebarStore";
 import { navItems } from "./nav-data";
 import { X, ChevronDown, ChevronRight, Search, LogOut, User as UserIcon, LayoutDashboard } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "./utils";
 import { useAuth } from "@/hooks/useAuth";
+import Logo from "../ui/logo.jsx";
 
 export const MobileMenu = () => {
     const { isMobileOpen, setMobileOpen } = useSidebarStore();
@@ -43,7 +44,7 @@ export const MobileMenu = () => {
 
     return (
         <AnimatePresence>
-            <div className="fixed inset-0 z-200 lg:hidden">
+            <div className="fixed inset-0 z-200 lg:hidden h-dvh">
                 {/* Backdrop */}
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -64,8 +65,9 @@ export const MobileMenu = () => {
                     {/* Header */}
                     <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10">
                         <div className="flex items-center gap-2">
-                            <img src="/Icons/Logo.svg" alt="Logo" className="h-8 w-auto" />
-
+                            <div onClick={() => setMobileOpen(false)}>
+                                <Logo className="h-222 w-auto" />
+                            </div>
                         </div>
                         <button
                             onClick={() => setMobileOpen(false)}
@@ -75,7 +77,7 @@ export const MobileMenu = () => {
                         </button>
                     </div>
 
-                    {/* Chfontent */}
+                    {/* Content */}
                     <div className="flex-1 overflow-y-auto py-2 no-scrollbar px-4">
                         {/* Search in Menu */}
                         <div className="mb-6 mt-2">
@@ -231,7 +233,7 @@ export const MobileMenu = () => {
                                 onClick={() => setMobileOpen(false)}
                                 className="w-full bg-[#e09a74] text-white py-3 rounded-xl font-bold text-center block transition-transform hover:scale-[0.98] active:scale-[0.96]"
                             >
-                                Sign In / Join
+                                Sign in / Join
                             </Link>
                         )}
                     </div>

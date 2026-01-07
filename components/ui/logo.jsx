@@ -1,18 +1,18 @@
 // components/ui/Logo.jsx
-import Image from 'next/image';
-import Link from 'next/link';
-import logo from '../../public/Icons/Logo.svg';
+"use client";
 
-export default function Logo({ href = '/', className = '' }) {
+import Link from "next/link";
+import Image from "next/image";
+import logoImg from "../../public/Icons/Logo 3.png";
+
+export default function Logo({ className = "" }) {
   return (
-    <Link href={href} className={className}>
+    <Link href="/" className={className}>
       <Image
-        src={logo}
-        alt="arcmat"
-        width={30}
-        height={30}
+        src={logoImg}
+        alt="Logo"
+        className="h-14 w-auto object-contain"
         priority
-        className="h-8 w-auto"
       />
     </Link>
   );

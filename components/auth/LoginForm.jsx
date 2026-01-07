@@ -134,7 +134,7 @@ export default function LoginForm() {
             )}
           >
             {loginMutation.isPending ? (
-              <span className="flex items-center gap-2">
+              <span className="flex items-center justify-center gap-2">
                 <ClipLoader size={18} color="#D9A88A" />
                 <span>Signing In...</span>
               </span>

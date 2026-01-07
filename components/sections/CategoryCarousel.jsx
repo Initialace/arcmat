@@ -8,7 +8,7 @@ import 'swiper/css/navigation';
 import Container from '../ui/Container';
 
 const categories = [
-    { name: 'NEW', image: '/Category/Rectangle 24.png' },
+    { name: 'NEW', image: '/Category/new.jpg' },
     { name: 'CONSTRUCTION', image: '/Category/construction.jpg' },
     { name: 'FINISHES', image: '/Category/finish.jpg' },
     { name: 'LIGHTING', image: '/Category/light.jpg' },

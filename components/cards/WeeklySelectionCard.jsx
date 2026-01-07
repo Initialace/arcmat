@@ -3,38 +3,30 @@ import Image from "next/image";
 
 const WeeklySelectionCard = ({ brand, image, title, description, link, onViewMore }) => {
     return (
-        <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 border border-gray-100 flex flex-col hover:translate-y-[-4px] transition-transform duration-500">
-            <div className="p-4 flex justify-between items-center border-b border-gray-100/50">
-                <span className="font-bold text-[#003366] text-lg italic tracking-wide">{brand}</span>
-
-            </div>
-
-            <div className="relative w-full h-48 sm:h-56 bg-gray-100 group overflow-hidden">
+        <div
+            onClick={onViewMore}
+            className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col hover:translate-y-[-4px] cursor-pointer"
+        >
+            <div className="relative w-full h-80 sm:h-80 bg-gradient-to-br from-slate-600 to-slate-800 group overflow-hidden">
                 <Image
                     src={image}
                     alt={title}
                     fill
-                    className="object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-            </div>
 
-            <div className="p-4 flex flex-col flex-grow">
-                <h3 className="text-gray-900 font-semibold mb-1 text-base">{title}</h3>
-                <p className="text-gray-500 text-xs mb-4 line-clamp-2">{description}</p>
+                {/* Brand overlay on image */}
+                <div className="absolute top-4 left-4 z-20">
+                    <span className=" text-gray-900 text-sm font-bold">
+                        {brand}
+                    </span>
+                </div>
 
-                {/* <div className="mt-auto">
-                    <button
-                        onClick={onViewMore}
-                        className="inline-block px-5 py-1.5 border border-[#d2b48c] text-[#a08050] text-xs font-medium rounded-full hover:bg-[#d2b48c] hover:text-white transition-colors duration-300 uppercase tracking-wide"
-                    >
-                        View More
-                    </button>
-                </div> */}
+                {/* Optional: Gradient overlay for better text readability */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
             </div>
         </div>
     );
 };
-
-
 
 export default WeeklySelectionCard;

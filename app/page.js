@@ -26,7 +26,7 @@ export default function Page() {
             </div>
             <div className='lg:px-20'>
               <p className="text-base sm:text-lg lg:text-[23px] font-normal text-gray-600">
-                Shop multiple categories from one trusted platform. Save time, effort, and cost—without the hassle.
+                Shop multiple categories from one trusted platform.
               </p>
             </div>
           </div>

@@ -8,7 +8,9 @@ const authService = {
             mobile: Number(userData.mobile),
             password: userData.password,
             profile: userData.profile || '',
-            role: userData.role
+            role: userData.role,
+            profession: userData.profession,
+            city: userData.city
         };
 
         const response = await api.post('/user/register', payload);

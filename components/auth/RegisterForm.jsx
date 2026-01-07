@@ -7,15 +7,19 @@ import { z } from 'zod';
 import { useRegisterMutation } from '@/hooks/useAuth';
 import Link from 'next/link';
 import { ClipLoader } from 'react-spinners';
-import { Eye, EyeOff, Info } from 'lucide-react';
+import { Eye, EyeOff, Info, ChevronDown } from 'lucide-react';
 import clsx from 'clsx';
 import Button from '@/components/ui/Button';
 import BackLink from '../ui/BackLink';
+
+const PROFESSIONS = ['Architect', 'Interior Designer', 'Contractor', 'Other'];
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   mobile: z.string().min(10, 'Mobile must be at least 10 characters').regex(/^\d+$/, 'Mobile number must contain only digits'),
   email: z.string().email('Please enter a valid business email'),
+  city: z.string().min(2, 'City must be at least 2 characters'),
+  profession: z.string().optional(),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   confirmPassword: z.string(),
   profile: z.string().url('Please enter a valid URL').optional().or(z.literal('')),
@@ -33,6 +37,7 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: zodResolver(registerSchema),
     mode: 'onBlur',
@@ -42,9 +47,14 @@ export default function RegisterForm() {
 
   const onSubmit = (data) => {
     const assignedRole = activeTab === 'professionals' ? 'customer' : 'vendor';
+    // Clear profession if registering as a brand
+    const finalData = {
+      ...data,
+      profession: activeTab === 'professionals' ? data.profession : undefined
+    };
 
     // Add www. prefix to profile URL if it exists and doesn't already have it
-    let profileUrl = data.profile;
+    let profileUrl = finalData.profile;
     if (profileUrl && profileUrl.trim() !== '') {
       // Remove any existing protocol or www. to avoid duplication
       profileUrl = profileUrl.replace(/^(https?:\/\/)?(www\.)?/, '');
@@ -52,7 +62,7 @@ export default function RegisterForm() {
       profileUrl = 'www.' + profileUrl;
     }
 
-    registerMutation.mutate({ ...data, profile: profileUrl, role: assignedRole });
+    registerMutation.mutate({ ...finalData, profile: profileUrl, role: assignedRole });
   };
 
   return (
@@ -66,7 +76,10 @@ export default function RegisterForm() {
         <div className="flex w-full gap-1 sm:gap-2 mb-6 p-1 bg-[#f5f0eb] rounded-full">
           <button
             type="button"
-            onClick={() => setActiveTab('professionals')}
+            onClick={() => {
+              setActiveTab('professionals');
+              reset(); // Reset form when switching tabs to clear errors/values if needed
+            }}
             className={clsx(
               'flex-1 rounded-full font-medium transition-all whitespace-nowrap py-2 sm:py-2.5 px-2 sm:px-6 text-xs sm:text-sm',
               activeTab === 'professionals' ? 'bg-white text-[#d9a88a] shadow-sm' : 'text-[#718096] hover:text-[#4a5568]'
@@ -76,7 +89,10 @@ export default function RegisterForm() {
           </button>
           <button
             type="button"
-            onClick={() => setActiveTab('brands')}
+            onClick={() => {
+              setActiveTab('brands');
+              reset();
+            }}
             className={clsx(
               'flex-1 rounded-full font-medium transition-all whitespace-nowrap py-2 sm:py-2.5 px-2 sm:px-6 text-xs sm:text-sm',
               activeTab === 'brands' ? 'bg-white text-[#d9a88a] shadow-sm' : 'text-[#718096] hover:text-[#4a5568]'
@@ -137,6 +153,43 @@ export default function RegisterForm() {
             <Info className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#a0aec0]" />
           </div>
           {errors.email && <p className="mt-1.5 text-sm text-red-500">{errors.email.message}</p>}
+        </div>
+
+        {activeTab === 'professionals' && (
+          <div>
+            <div className="relative">
+              <select
+                {...register('profession')}
+                className={clsx(
+                  'w-full px-4 py-3.5 border rounded-lg text-base text-[#4a5568] placeholder:text-[#a0aec0] focus:outline-none focus:ring-2 focus:ring-[#d9a88a] focus:border-transparent transition-all appearance-none bg-white',
+                  errors.profession ? 'border-red-500' : 'border-[#e2e8f0]'
+                )}
+                defaultValue=""
+              >
+                <option value="" disabled>Select Profession</option>
+                {PROFESSIONS.map((prof) => (
+                  <option key={prof} value={prof}>
+                    {prof}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#a0aec0] pointer-events-none" />
+            </div>
+            {errors.profession && <p className="mt-1.5 text-sm text-red-500">{errors.profession.message}</p>}
+          </div>
+        )}
+
+        <div>
+          <input
+            type="text"
+            placeholder="City / Address"
+            {...register('city')}
+            className={clsx(
+              'w-full px-4 py-3.5 border rounded-lg text-base text-[#4a5568] placeholder:text-[#a0aec0] focus:outline-none focus:ring-2 focus:ring-[#d9a88a] focus:border-transparent transition-all',
+              errors.city ? 'border-red-500' : 'border-[#e2e8f0]'
+            )}
+          />
+          {errors.city && <p className="mt-1.5 text-sm text-red-500">{errors.city.message}</p>}
         </div>
 
         <div className="grid grid-cols-2 gap-3">
