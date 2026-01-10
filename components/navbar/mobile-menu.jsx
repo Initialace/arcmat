@@ -160,7 +160,7 @@ export const MobileMenu = () => {
                                                                                     {category.links.flat().map((link) => (
                                                                                         <Link
                                                                                             key={link}
-                                                                                            href="#"
+                                                                                            href="/productlist"
                                                                                             onClick={() => setMobileOpen(false)}
                                                                                             className="block py-2 px-3 text-sm text-gray-500 hover:text-[#e09a74] hover:bg-[#e09a74]/5 rounded-md transition-all"
                                                                                         >

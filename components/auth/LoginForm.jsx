@@ -10,6 +10,7 @@ import { ClipLoader } from 'react-spinners';
 import clsx from 'clsx';
 import Button from '../ui/Button';
 import BackLink from '../ui/BackLink';
+import Image from 'next/image';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid business email'),

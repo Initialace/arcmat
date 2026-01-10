@@ -72,7 +72,7 @@ const HeroSection = () => {
         <div className="flex gap-4 flex-wrap justify-center mt-4">
           <Button
             text="Join for free"
-            href="/auth/login"
+            href="/auth/register"
             className="px-6 py-3 bg-white text-[16px] text-[#4D4E58] hover:bg-gray-100 hover:scale-105"
           />
           <Button

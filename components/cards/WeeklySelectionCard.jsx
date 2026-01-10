@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-const WeeklySelectionCard = ({ brand, image, title, description, link, onViewMore }) => {
+const WeeklySelectionCard = ({ brand, image, title, description, link, logo, onViewMore }) => {
     return (
         <div
             onClick={onViewMore}
@@ -17,9 +17,17 @@ const WeeklySelectionCard = ({ brand, image, title, description, link, onViewMor
 
                 {/* Brand overlay on image */}
                 <div className="absolute top-4 left-4 z-20">
-                    <span className=" text-gray-900 text-sm font-bold">
-                        {brand}
-                    </span>
+                    {logo && (
+                        <div className="bg-white/90 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-sm">
+                            <Image
+                                src={logo}
+                                alt={brand}
+                                width={80}
+                                height={30}
+                                className="object-contain h-6 w-auto"
+                            />
+                        </div>
+                    )}
                 </div>
 
                 {/* Optional: Gradient overlay for better text readability */}

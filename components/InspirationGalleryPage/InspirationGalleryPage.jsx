@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import data from "./data.json";
-import InspirationCard from "./InspirationCard";
+import InspirationCard from "../cards/InspirationPageCard";
 import ProductModal from "./ProductModal";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";

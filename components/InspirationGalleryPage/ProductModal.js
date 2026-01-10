@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createPortal } from "react-dom"; // <--- 1. Import createPortal
-import { X, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
+import { createPortal } from "react-dom";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const ProductModal = ({ product, onClose }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [mounted, setMounted] = useState(false); // <--- 2. Add mounted state
+    const [mounted, setMounted] = useState(false);
 
     // Wait for client-side mount
     useEffect(() => {
@@ -32,7 +32,7 @@ const ProductModal = ({ product, onClose }) => {
     // If not mounted or no product, return nothing
     if (!mounted || !product) return null;
 
-    // 3. Wrap everything in createPortal(JSX, document.body)
+    // Wrap everything in createPortal(JSX, document.body)
     return createPortal(
         <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6">
             {/* Backdrop */}
@@ -42,7 +42,7 @@ const ProductModal = ({ product, onClose }) => {
             />
 
             {/* Modal Content */}
-            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden flex flex-col md:flex-row animate-in fade-in zoom-in duration-300">
+            <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-6xl overflow-hidden flex flex-col animate-in fade-in zoom-in duration-300">
 
                 {/* Close Button */}
                 <button
@@ -52,16 +52,23 @@ const ProductModal = ({ product, onClose }) => {
                     <X size={24} />
                 </button>
 
-                {/* Left Side: Image Gallery */}
-                <div className="w-full md:w-2/3 bg-[#f4f4f4] relative flex flex-col h-[50vh] md:h-[80vh]">
+                {/* Image Gallery */}
+                <div className="w-full bg-[#f4f4f4] relative flex flex-col h-[50vh] md:h-[80vh]">
 
                     {/* Main Image Stage */}
                     <div className="relative flex-1 w-full h-full group">
                         <img
                             src={allImages[currentImageIndex]}
-                            alt={product.company}
+                            alt={product.company || "Product Image"}
                             className="w-full h-full object-cover transition-opacity duration-300"
                         />
+
+                        {/* Brand Name Overlay */}
+                        <div className="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md">
+                            <span className="font-bold text-[#d69e76] text-lg tracking-wide">
+                                {product.company}
+                            </span>
+                        </div>
 
                         {/* Navigation Arrows */}
                         {allImages.length > 1 && (
@@ -98,44 +105,9 @@ const ProductModal = ({ product, onClose }) => {
                         </div>
                     )}
                 </div>
-
-                {/* Right Side: Product Info */}
-                <div className="w-full md:w-1/3 p-8 flex flex-col overflow-y-auto bg-white">
-                    <div className="mb-6">
-                        <span className="inline-block px-3 py-1 bg-[#fff6f0] text-[#d69e76] text-xs font-semibold rounded-full mb-3 uppercase tracking-wider">
-                            {product.category}
-                        </span>
-                        <h2 className="text-3xl font-serif text-gray-900 mb-2">{product.company}</h2>
-                        <div className="h-1 w-12 bg-[#d69e76] rounded-full"></div>
-                    </div>
-
-                    <p className="text-gray-600 leading-relaxed text-lg mb-8">
-                        {product.description}
-                    </p>
-
-                    <div className="mt-auto space-y-4">
-                        <div className="grid grid-cols-2 gap-4 text-sm text-gray-500 border-t pt-4 mb-6">
-                            <div>
-                                <span className="block font-medium text-gray-900">ID Ref</span>
-                                #{product.id.toString().padStart(4, '0')}
-                            </div>
-                            <div>
-                                <span className="block font-medium text-gray-900">Images</span>
-                                {allImages.length} Shots
-                            </div>
-                        </div>
-
-                        <a
-                            href={product.link}
-                            className="flex items-center justify-center gap-2 w-full bg-[#2a2a2a] text-white py-4 rounded-xl font-medium hover:bg-[#d69e76] transition-colors"
-                        >
-                            Visit Website <ExternalLink size={18} />
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>,
-        document.body // <--- Target DOM node
+        document.body
     );
 };
 
