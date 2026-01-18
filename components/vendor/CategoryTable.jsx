@@ -67,9 +67,10 @@ export default function CategoryTable({ categories }) {
                                             href={`/dashboard/products-list?category=${cat.categoryId}`}
                                             className="px-3 py-1.5 border border-gray-200 shadow-sm text-xs font-medium text-gray-700 bg-white hover:bg-gray-50"
                                             variant="solid"
+                                            text="View"
                                         >
                                             <Eye className="w-3 h-3 mr-1.5" />
-                                            View
+
                                         </Button>
 
                                         {cat.incompleteProducts > 0 && (
@@ -77,9 +78,10 @@ export default function CategoryTable({ categories }) {
                                                 href={`/dashboard/attributes?category=${cat.categoryId}`}
                                                 className="px-3 py-1.5 border border-transparent shadow-sm text-xs font-medium text-white bg-green-600 hover:bg-green-700"
                                                 variant="solid"
+                                                text="Fix"
                                             >
                                                 <Edit3 className="w-3 h-3 mr-1.5" />
-                                                Fix
+
                                             </Button>
                                         )}
                                     </td>

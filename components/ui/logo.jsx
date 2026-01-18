@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import logoImg from "../../public/Icons/Logo 3.png";
+import logoImg from "../../public/Icons/arcmatlogo.svg";
 
 export default function Logo({ className = "" }) {
   return (
@@ -11,7 +11,7 @@ export default function Logo({ className = "" }) {
       <Image
         src={logoImg}
         alt="Logo"
-        className="h-14 w-auto object-contain"
+        className="h-8 w-auto object-contain"
         priority
       />
     </Link>

@@ -12,7 +12,8 @@ import {
   Tags,
   Layers,
   Heart,
-  ShoppingBag
+  ShoppingBag,
+  User
 } from 'lucide-react';
 import clsx from 'clsx';
 import useAuthStore from '@/store/useAuthStore';
@@ -27,7 +28,8 @@ const ICON_MAP = {
   Layers,
   HelpCircle,
   ShoppingBag,
-  Heart
+  Heart,
+  User
 };
 
 const mapIcons = (items) => items.map(item => ({

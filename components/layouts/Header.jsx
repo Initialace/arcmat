@@ -173,7 +173,6 @@ const Header = ({ variant = 'default' }) => {
                                 {profileOpen && (
                                     <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-1 z-50 overflow-hidden">
                                         <div className="px-4 py-3 border-b border-gray-50 bg-gray-50/50">
-                                            <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Account</p>
                                             <p className="text-sm font-semibold text-[#4D4E58] truncate">{user.name || user.fullName}</p>
                                             <p className="text-xs text-gray-400 truncate">{user.email}</p>
                                         </div>
@@ -241,7 +240,6 @@ const Header = ({ variant = 'default' }) => {
                                 {isAuthenticated && user ? (
                                     <>
                                         <div className="px-4 py-3 border-b border-gray-50 bg-gray-50/50">
-                                            <p className="text-xs text-gray-500 font-medium uppercase">Account</p>
                                             <p className="text-sm font-semibold text-[#4D4E58] truncate">
                                                 {user.name || user.fullName}
                                             </p>

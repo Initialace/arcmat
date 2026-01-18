@@ -6,20 +6,52 @@ import Navbar from "@/components/navbar/navbar"
 import ProductDetailView from "@/components/sections/ProductDetailView"
 import Container from "@/components/ui/Container"
 import Footer from "@/components/layouts/Footer"
-import productsData from '@/app/productlist/data.json'
+import { useGetProduct } from '@/hooks/useProduct'
+import { Loader2 } from 'lucide-react'
 
 const ProductDetailPage = () => {
     const params = useParams()
-    const productId = parseInt(params.id)
+    const id = params.id
 
-    const product = productsData.find(p => p.id === productId)
+    const { data: apiResponse, isLoading, error } = useGetProduct(id)
+    const product = apiResponse?.data?.data
+
+    if (isLoading) {
+        return (
+            <div className="min-h-screen flex flex-col">
+                <Header />
+                <Navbar />
+                <div className="flex-1 flex items-center justify-center">
+                    <Loader2 className="w-10 h-10 text-[#e09a74] animate-spin" />
+                </div>
+                <Footer />
+            </div>
+        )
+    }
+
+    if (!product) {
+        return (
+            <div className="min-h-screen flex flex-col">
+                <Header />
+                <Navbar />
+                <div className="flex-1 flex items-center justify-center">
+                    <p className="text-xl text-gray-500 font-medium">Product not found</p>
+                </div>
+                <Footer />
+            </div>
+        )
+    }
 
     return (
         <div className="min-h-screen bg-gray-50">
             <Header />
             <Navbar />
             <Container className="py-8">
-                <ProductDetailView product={product} />
+                <ProductDetailView
+                    product={product}
+                    categories={apiResponse?.data?.parentcategory}
+                    childCategories={apiResponse?.data?.childcategory}
+                />
             </Container>
             <Footer />
         </div>

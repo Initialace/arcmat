@@ -9,7 +9,23 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 
 const ProductCard = ({ product }) => {
-    const images = product.images || [product.image]
+    const name = product.product_name || product.name
+    const brand = product.brand
+    const subtitle = product.sort_description || product.subtitle
+    const id = product._id || product.id
+    const price = product.selling_price || product.price
+    const mrp = product.mrp_price || product.mrp
+
+    const rawImages = product.product_images?.length > 0
+        ? product.product_images
+        : (Array.isArray(product.images) ? product.images : [product.image || product.product_image1].filter(Boolean));
+
+    const images = rawImages.map(img => {
+        if (!img || typeof img !== 'string') return null;
+        if (img.startsWith('http') || img.startsWith('data:') || img.startsWith('/')) return img;
+        return `http://localhost:8000/api/public/uploads/product/${img}`;
+    }).filter(Boolean);
+
     const hasMultipleImages = images.length > 1
     const [currentImageIdx, setCurrentImageIdx] = React.useState(0)
     const [isAdded, setIsAdded] = React.useState(false)
@@ -21,7 +37,7 @@ const ProductCard = ({ product }) => {
 
     return (
         <div className="group flex flex-col bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-transparent hover:border-gray-100 p-3">
-            <Link href={`/productdetails/${product.id}`} className="block">
+            <Link href={`/productdetails/${id}`} className="block">
                 <div className="relative aspect-square mb-4 bg-gray-50 rounded-lg overflow-hidden">
                     {hasMultipleImages ? (
                         <Swiper
@@ -39,7 +55,7 @@ const ProductCard = ({ product }) => {
                                 <SwiperSlide key={idx}>
                                     <Image
                                         src={img}
-                                        alt={product.name}
+                                        alt={name}
                                         fill
                                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                                     />
@@ -49,22 +65,27 @@ const ProductCard = ({ product }) => {
                     ) : (
                         <Image
                             src={images[currentImageIdx] || images[0]}
-                            alt={product.name}
+                            alt={name}
                             fill
                             className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                     )}
 
-                    {product.isNew && (
+                    {(product.isNew || product.newarrivedproduct === "Active") && (
                         <div className="absolute top-2 left-2 bg-[#e09a74] text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm uppercase z-10">
                             New
+                        </div>
+                    )}
+                    {(product.trendingproduct === "Active") && (
+                        <div className="absolute top-2 right-2 bg-orange-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm uppercase z-10">
+                            Trending
                         </div>
                     )}
                 </div>
 
                 <div className="flex flex-col flex-1 px-3">
                     <div className="flex items-center gap-1.5 mb-3">
-                        {product.images?.map((sv, idx) => (
+                        {images?.map((sv, idx) => (
                             <button
                                 key={idx}
                                 onClick={(e) => {
@@ -81,9 +102,12 @@ const ProductCard = ({ product }) => {
                         )}
                     </div>
 
-                    <h4 className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider mb-0.5">{product.name}</h4>
-                    <h3 className="text-[13px] font-semibold text-gray-800 leading-tight mb-1 group-hover:text-[#e09a74] transition-colors">{product.brand}</h3>
-                    <p className="text-[12px] font-normal text-gray-500 mb-4 line-clamp-1">{product.subtitle}</p>
+                    <h4 className="text-[9px] font-semibold text-gray-400 uppercase tracking-wider mb-0.5">{name}</h4>
+                    <h3 className="text-[13px] font-semibold text-gray-800 leading-tight mb-1 group-hover:text-[#e09a74] transition-colors">{brand}</h3>
+                    <p className="text-[12px] font-normal text-gray-500 mb-4 line-clamp-1">{subtitle}</p>
+                    {price && (
+                        <p className="text-[14px] font-bold text-[#e09a74] mb-2">₹{price}</p>
+                    )}
                 </div>
             </Link>
 

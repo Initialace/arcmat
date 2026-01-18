@@ -1,7 +1,7 @@
-'use client';
-
 import { useUIStore } from '@/store/useUIStore';
 import ProductForm from './ProductForm';
+import { useCreateProduct, useUpdateProduct } from '@/hooks/useProduct';
+import { toast } from '@/components/ui/Toast';
 
 export default function ProductFormModal() {
   const {
@@ -9,6 +9,29 @@ export default function ProductFormModal() {
     closeProductFormModal,
     editingProduct
   } = useUIStore();
+
+  const createProduct = useCreateProduct();
+  const updateProduct = useUpdateProduct();
+
+  const handleFormSubmit = async (formData) => {
+    try {
+      if (editingProduct) {
+        const id = editingProduct._id || editingProduct.id;
+        await updateProduct.mutateAsync({ id, data: formData });
+        toast.success("Product updated successfully");
+      } else {
+        await createProduct.mutateAsync(formData);
+        toast.success("Product created successfully");
+      }
+      closeProductFormModal();
+    } catch (e) {
+      console.error(e);
+      const msg = e.response?.data?.message?.message || e.message || "Failed to save product";
+      toast.error(msg);
+    }
+  };
+
+  const isSubmitting = createProduct.isPending || updateProduct.isPending;
 
   if (!isProductFormModalOpen) return null;
 
@@ -30,10 +53,11 @@ export default function ProductFormModal() {
             </button>
           </div>
 
-          {/* Pass the editingProduct data to the form */}
           <ProductForm
-            product={editingProduct}
-            onSuccess={() => closeProductFormModal()}
+            initialData={editingProduct}
+            onSubmit={handleFormSubmit}
+            onCancel={closeProductFormModal}
+            isSubmitting={isSubmitting}
           />
         </div>
       </div>

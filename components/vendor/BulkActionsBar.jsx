@@ -6,9 +6,8 @@ import { useUIStore } from '@/store/useUIStore';
 import { CATEGORIES } from '@/lib/mockData/categories';
 import { toast } from '../ui/Toast';
 
-export default function BulkActionsBar() {
+export default function BulkActionsBar({ products = [] }) {
   const {
-    products,
     selectedProducts,
     bulkUpdateStatus,
     bulkUpdateCategory,
@@ -28,7 +27,7 @@ export default function BulkActionsBar() {
     switch (selectedAction) {
       case 'edit':
         if (selectedProducts.length === 1) {
-          const productToEdit = products.find((p) => p.id === selectedProducts[0]);
+          const productToEdit = products.find((p) => (p._id || p.id) === selectedProducts[0]);
           if (productToEdit) {
             openProductFormModal(productToEdit);
           }
@@ -101,7 +100,7 @@ export default function BulkActionsBar() {
               className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#d9a88a] text-black"
             >
               <option value="">Select Action...</option>
-              
+
               {/* Only show Edit if exactly 1 item is selected */}
               {selectedProducts.length === 1 && (
                 <option value="edit">Edit Product</option>
@@ -110,7 +109,7 @@ export default function BulkActionsBar() {
               <option value="activate">Set Active</option>
               <option value="deactivate">Set Inactive</option>
               <option value="delete">Delete</option>
-              
+
               <optgroup label="Move to Category">
                 {CATEGORIES.map((cat) => (
                   <option key={cat.id} value={`category-${cat.id}`}>

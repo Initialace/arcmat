@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from '../ui/Toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -12,7 +13,7 @@ import clsx from 'clsx';
 import Button from '@/components/ui/Button';
 import BackLink from '../ui/BackLink';
 
-const PROFESSIONS = ['Architect', 'Interior Designer', 'Contractor', 'Other'];
+const PROFESSIONS = ['Architect', 'Designer', 'Contractor', 'Other'];
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -46,11 +47,18 @@ export default function RegisterForm() {
   const registerMutation = useRegisterMutation();
 
   const onSubmit = (data) => {
-    const assignedRole = activeTab === 'professionals' ? 'customer' : 'vendor';
-    // Clear profession if registering as a brand
+    let assignedRole = 'customer';
+
+    if (activeTab === 'professionals') {
+      assignedRole = (data.profession && data.profession !== '') ? 'architect' : 'customer';
+    } else {
+      assignedRole = 'vendor';
+    }
+
+    // Clear profession if registering as a brand or if role is customer
     const finalData = {
       ...data,
-      profession: activeTab === 'professionals' ? data.profession : undefined
+      profession: (activeTab === 'professionals') ? data.profession : undefined
     };
 
     // Add www. prefix to profile URL if it exists and doesn't already have it
@@ -62,7 +70,14 @@ export default function RegisterForm() {
       profileUrl = 'www.' + profileUrl;
     }
 
-    registerMutation.mutate({ ...finalData, profile: profileUrl, role: assignedRole });
+    registerMutation.mutate({ ...finalData, profile: profileUrl, role: assignedRole }, {
+      onSuccess: () => {
+        toast.success(`Welcome! Your ${assignedRole} account has been created.`, 'Registration Successful');
+      },
+      onError: (error) => {
+        toast.error(error.message || 'Registration failed', 'Registration Error');
+      }
+    });
   };
 
   return (
@@ -85,7 +100,7 @@ export default function RegisterForm() {
               activeTab === 'professionals' ? 'bg-white text-[#d9a88a] shadow-sm' : 'text-[#718096] hover:text-[#4a5568]'
             )}
           >
-            Professionals
+            User
           </button>
           <button
             type="button"
@@ -143,7 +158,7 @@ export default function RegisterForm() {
           <div className="relative">
             <input
               type="email"
-              placeholder="Business Email"
+              placeholder="Email or Business Email"
               {...register('email')}
               className={clsx(
                 'w-full px-4 py-3.5 pr-12 border rounded-lg text-base text-[#4a5568] placeholder:text-[#a0aec0] focus:outline-none focus:ring-2 focus:ring-[#d9a88a] focus:border-transparent transition-all',
@@ -250,14 +265,6 @@ export default function RegisterForm() {
           />
           {errors.profile && <p className="mt-1.5 text-sm text-red-500">{errors.profile.message}</p>}
         </div>
-
-        {registerMutation.isError && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-sm text-red-600">
-              {registerMutation.error.message || 'Registration failed. Please try again.'}
-            </p>
-          </div>
-        )}
 
         <p className="text-sm text-[#718096]">
           By Clicking "Create Account", You Agree to{' '}

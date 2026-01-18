@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import api from '../api/api.jsx';
+import authService from '../services/authService';
 
 const useAuthStoreBase = create(
   persist(
@@ -49,16 +49,12 @@ const useAuthStoreBase = create(
           }
 
           // 2. Fetch User Info
-          // We need to pass the token explicitly or ensure api.jsx creates a new instance/interceptor updates
-          // But api.jsx reads from localStorage or cookie? logic needs update there too.
-          // For now, assume api.jsx will be updated to read cookie.
-
-          const response = await api.get('/userinfo');
+          const rawData = await authService.getUserInfo();
 
           // 3. Update Store
           // Handle potential API response wrapper (e.g., { data: {...} } or { user: {...} })
-          const rawData = response.data;
           const userData = rawData?.data || rawData?.user || rawData;
+
 
           const vendorId = userData?.role === 'vendor' ? (userData.vendorId || userData.id) : null;
 

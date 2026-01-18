@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { toast } from '../ui/Toast';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -10,6 +11,7 @@ import { ClipLoader } from 'react-spinners';
 import clsx from 'clsx';
 import Button from '../ui/Button';
 import BackLink from '../ui/BackLink';
+import Image from 'next/image';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid business email'),
@@ -31,7 +33,16 @@ export default function LoginForm() {
   const loginMutation = useLoginMutation();
 
   const onSubmit = (data) => {
-    loginMutation.mutate(data);
+    loginMutation.mutate(data, {
+      onSuccess: () => {
+        toast.success('Successfully logged in!', 'Welcome Back');
+      },
+      onError: (error) => {
+        const is401 = error.message?.includes('401') || error.response?.status === 401;
+        const message = is401 ? 'Invalid email or password' : (error.message || 'Login failed');
+        toast.error(message, 'Login Failed');
+      },
+    });
   };
 
   return (
@@ -101,14 +112,6 @@ export default function LoginForm() {
             </button>
             {errors.password && <span className="text-red-500 text-sm mt-1 absolute -bottom-6 left-0">{errors.password.message}</span>}
           </div>
-
-          {loginMutation.isError && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-600">
-                {loginMutation.error.message || 'Login failed. Please try again.'}
-              </p>
-            </div>
-          )}
 
           <div className="space-y-4 pt-2">
             <p className="text-[12px] text-[#4D4E58]">

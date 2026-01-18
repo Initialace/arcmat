@@ -1,303 +1,196 @@
 'use client';
 
 import { useState } from 'react';
+import { useBulkImportProduct } from '@/hooks/useProduct';
+import { toast } from '@/components/ui/Toast';
+import { X, Upload, FileText, CheckCircle, AlertCircle, Download } from 'lucide-react';
+import Button from '@/components/ui/Button';
 import { useUIStore } from '@/store/useUIStore';
-import { useProductStore } from '@/store/useProductStore';
-import { useAuthStore } from '@/store/useAuthStore';
-import { toast } from '../ui/Toast';
-import * as XLSX from 'xlsx';
 
 export default function BulkUploadModal() {
   const { isBulkUploadModalOpen, closeBulkUploadModal } = useUIStore();
-  const { addProducts } = useProductStore();
-  const { currentVendorId } = useAuthStore();
-
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState([]);
-  const [parsedData, setParsedData] = useState([]);
-  const [uploading, setUploading] = useState(false);
-  const [uploadResult, setUploadResult] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [result, setResult] = useState(null);
 
-  if (!isBulkUploadModalOpen) return null;
+  const bulkImportMutation = useBulkImportProduct();
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    if (!selectedFile) return;
-
-    const validExtensions = ['csv', 'xls', 'xlsx', 'xlsm'];
-    const fileExtension = selectedFile.name.split('.').pop().toLowerCase();
-
-    if (!validExtensions.includes(fileExtension)) {
-      toast.error('Please upload a valid file (CSV, XLS, XLSX, XLSM)');
-      return;
-    }
-
-    setFile(selectedFile);
-    setUploadResult(null);
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const binaryStr = event.target.result;
-      const workbook = XLSX.read(binaryStr, { type: 'binary' });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(sheet);
-
-      processData(jsonData);
-    };
-    reader.readAsBinaryString(selectedFile);
-  };
-
-  const processData = (data) => {
-    const previewRows = [];
-    const validItems = [];
-    const errors = [];
-
-    data.forEach((row, index) => {
-      // 1. Basic Validation Logic
-      let status = 'Valid';
-      let rowError = null;
-
-      // MAPPING: Handle different column names (Case insensitive / Aliases)
-      const name = row['Product Name'] || row['name'] || row['Name'];
-      const price = row['Price'] || row['price'];
-
-      // FIX 1: Look for 'stockQuantity' specifically (matches your CSV)
-      const stock = row['Stock'] || row['stock'] || row['Quantity'] || row['stockQuantity'];
-
-      const category = row['Category'] || row['category'] || row['categoryId'];
-      const mrp = row['MRP'] || row['mrp'];
-
-      // FIX 2: Look for 'image' (lowercase) and split by comma if multiple
-      const rawImages = row['Images'] || row['images'] || row['Image'] || row['Image URL'] || row['image'] || '';
-      const imageArray = rawImages
-        ? rawImages.toString().split(',').map(url => url.trim()).filter(url => url.length > 0)
-        : [];
-
-      // Validation
-      if (!name) {
-        status = 'Error: Missing Name';
-        rowError = 'Missing Name';
-      } else if (!price || isNaN(price)) {
-        status = 'Error: Invalid Price';
-        rowError = 'Invalid Price';
-      } else if (stock === undefined || isNaN(stock)) {
-        status = 'Error: Invalid Stock';
-        rowError = 'Invalid Stock';
-      }
-
-      // Create Preview Row
-      previewRows.push({
-        name: name || 'N/A',
-        category: category || 'Uncategorized',
-        price: price || '0',
-        stock: stock || '0',
-        imageCount: imageArray.length, // Visual check for user
-        status: status,
-      });
-
-      // Prepare Valid Item for Store
-      if (status === 'Valid') {
-        validItems.push({
-          name: name,
-          description: row['Description'] || row['description'] || '',
-          price: parseFloat(price),
-          mrp: mrp ? parseFloat(mrp) : parseFloat(price),
-          stockQuantity: parseInt(stock),
-          categoryId: category ? parseInt(category) : 1, // Default to 1 if missing
-          vendorId: currentVendorId,
-          tags: row['Tags'] || row['tags'] || '',
-          inStock: parseInt(stock) > 0,
-          images: imageArray,
-        });
+    if (selectedFile) {
+      if (
+        selectedFile.type === 'text/csv' ||
+        selectedFile.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+        selectedFile.type === 'application/vnd.ms-excel' ||
+        selectedFile.name.endsWith('.csv') ||
+        selectedFile.name.endsWith('.xlsx')
+      ) {
+        setFile(selectedFile);
+        setResult(null);
       } else {
-        errors.push({ row: index + 2, message: rowError });
+        toast.error('Please upload a valid CSV or Excel file');
       }
-    });
-
-    setPreview(previewRows);
-    setParsedData(validItems);
+    }
   };
 
   const handleUpload = async () => {
-    if (parsedData.length === 0) {
-      toast.error('No valid products to upload.');
-      return;
+    if (!file) return;
+
+    setIsUploading(true);
+    try {
+      const response = await bulkImportMutation.mutateAsync(file);
+      setResult(response.data);
+      toast.success('Bulk import completed successfully');
+    } catch (error) {
+      console.error('Bulk upload failed:', error);
+      toast.error(error.response?.data?.message || 'Failed to upload products');
+    } finally {
+      setIsUploading(false);
     }
+  };
 
-    setUploading(true);
-
-    // Simulate network delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // Add to Store
-    addProducts(parsedData);
-
-    // Calculate results
-    const total = preview.length;
-    const success = parsedData.length;
-    const failed = total - success;
-    const errorList = preview
-      .map((row, idx) => row.status.startsWith('Error') ? { row: idx + 2, message: row.status } : null)
-      .filter(Boolean);
-
-    setUploadResult({
-      total,
-      success,
-      failed,
-      errors: errorList,
-    });
-
-    setUploading(false);
-
-    if (success > 0) {
-      toast.success(`Successfully added ${success} products!`);
-    } else {
-      toast.error('Upload failed. Please check errors.');
-    }
+  const downloadTemplate = (type) => {
+    const filename = type === 'csv' ? 'sample_products.csv' : 'sample_products.xlsx';
+    // Link to the backend public folder
+    window.open(`http://localhost:8000/api/public/templates/${filename}`, '_blank');
   };
 
   const handleClose = () => {
     setFile(null);
-    setPreview([]);
-    setParsedData([]);
-    setUploadResult(null);
+    setResult(null);
     closeBulkUploadModal();
   };
 
+  if (!isBulkUploadModalOpen) return null;
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-[150] flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-xl">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm shadow-2xl">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100">
+        <div className="p-6">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+              <FileText className="w-6 h-6 text-[#e09a74]" />
+              Bulk Product Import
+            </h2>
+            <button onClick={handleClose} className="text-gray-400 hover:text-gray-600 transition-colors">
+              <X className="w-6 h-6" />
+            </button>
+          </div>
 
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b shrink-0">
-          <h2 className="text-xl font-semibold text-gray-900">
-            Bulk Upload Products
-          </h2>
-          <button
-            onClick={handleClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
+          {!result ? (
+            <div className="space-y-6">
+              <div className="bg-orange-50 p-4 rounded-lg flex items-start gap-3 border border-orange-100">
+                <AlertCircle className="w-5 h-5 text-orange-600 mt-0.5" />
+                <div className="text-sm text-orange-800">
+                  <p className="font-semibold mb-1">Important Information</p>
+                  <ul className="list-disc list-inside space-y-1 opacity-90 text-[13px]">
+                    <li>"Category Name" must exist in the system (Level 3).</li>
+                    <li>Required: Product Name, Category Name.</li>
+                    <li>Slug & Descriptions will be auto-filled if empty.</li>
+                  </ul>
+                </div>
+              </div>
 
-        {/* Content */}
-        <div className="p-6 overflow-y-auto flex-1">
-          {!uploadResult ? (
-            <>
-              {/* File Upload */}
-              <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:bg-gray-50 transition-colors cursor-pointer relative">
-                <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                </svg>
-                <p className="mt-2 text-sm text-gray-600">
-                  Upload CSV, XLS, XLSX, or XLSM file
-                </p>
+              <div className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center bg-gray-50 hover:bg-gray-100 transition-all cursor-pointer relative group">
                 <input
                   type="file"
-                  accept=".csv,.xls,.xlsx,.xlsm"
                   onChange={handleFileChange}
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 opacity-0 cursor-pointer z-10"
+                  accept=".csv, .xlsx, .xls"
                 />
-                {file && (
-                  <p className="mt-2 text-sm text-green-600 font-medium relative z-10">
-                    Selected: {file.name}
-                  </p>
+                <div className="flex flex-col items-center">
+                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-sm mb-3 group-hover:scale-110 transition-transform">
+                    <Upload className="w-6 h-6 text-[#e09a74]" />
+                  </div>
+                  {file ? (
+                    <div className="flex flex-col items-center">
+                      <span className="text-sm font-bold text-gray-900 truncate max-w-[200px]">{file.name}</span>
+                      <span className="text-xs text-gray-500 mt-1">Ready to import</span>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-sm font-bold text-gray-900">Click to upload or drag and drop</p>
+                      <p className="text-xs text-gray-500 mt-1">Excel (.xlsx) or CSV files only</p>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => downloadTemplate('csv')}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-gray-300 transition-all"
+                >
+                  <Download className="w-4 h-4 text-blue-600" />
+                  CSV Template
+                </button>
+                <button
+                  onClick={() => downloadTemplate('xlsx')}
+                  className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-gray-300 transition-all"
+                >
+                  <Download className="w-4 h-4 text-green-600" />
+                  Excel Template
+                </button>
+              </div>
+
+              <div className="pt-2">
+                <Button
+                  onClick={handleUpload}
+                  disabled={!file || isUploading}
+                  className="w-full bg-[#e09a74] text-white py-3.5 rounded-lg font-bold hover:bg-[#d08963] disabled:opacity-50 shadow-lg shadow-orange-100"
+                >
+                  {isUploading ? (
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Processing File...
+                    </div>
+                  ) : 'Start Bulk Import'}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="text-center py-4">
+              <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4 border border-green-100">
+                <CheckCircle className="w-10 h-10 text-green-500" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Import Complete</h3>
+              <p className="text-sm text-gray-600 mb-6 px-4">{result.message}</p>
+
+              <div className="bg-gray-50 rounded-xl p-5 mb-8 text-left border border-gray-100">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Sync Summary</p>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-gray-600 font-medium">Successfully Added</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">{result.details.success} products</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-gray-600 font-medium">Failed / Skipped</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 font-bold">{result.details.failed} rows</span>
+                  </div>
+                </div>
+
+                {result.details.errors.length > 0 && (
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-xs font-bold text-red-500 mb-2">Error Logs:</p>
+                    <div className="max-h-32 overflow-y-auto space-y-1 pr-2 custom-scrollbar">
+                      {result.details.errors.map((err, idx) => (
+                        <p key={idx} className="text-[11px] text-red-600 bg-red-50 p-1.5 rounded flex items-start gap-2">
+                          <span className="shrink-0">•</span>
+                          {err}
+                        </p>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </div>
 
-              {/* Helper Text */}
-              <div className="mt-4 text-xs text-gray-500 bg-gray-50 p-3 rounded">
-                <p className="font-semibold">Supported Columns:</p>
-                <p>Name, Price, Stock (or stockQuantity), Images (or image), Category, Description</p>
-              </div>
-
-              {/* Preview Table */}
-              {preview.length > 0 && (
-                <div className="mt-6">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">
-                    Preview ({preview.length} rows)
-                  </h3>
-                  <div className="border rounded-lg overflow-hidden">
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <thead className="bg-gray-50">
-                        <tr>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Price</th>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Stock</th>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Images</th>
-                          <th className="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                        </tr>
-                      </thead>
-                      <tbody className="bg-white divide-y divide-gray-200">
-                        {preview.map((row, idx) => (
-                          <tr key={idx} className="hover:bg-gray-50">
-                            <td className="px-4 py-2 text-sm text-gray-900">{row.name}</td>
-                            <td className="px-4 py-2 text-sm text-gray-900">{row.price}</td>
-                            <td className="px-4 py-2 text-sm text-gray-900">{row.stock}</td>
-                            <td className="px-4 py-2 text-sm text-gray-500">{row.imageCount} found</td>
-                            <td className="px-4 py-2 text-sm">
-                              <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${row.status.includes('Error') ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'
-                                }`}>
-                                {row.status}
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-            </>
-          ) : (
-            /* Upload Result */
-            <div className="text-center py-8">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">Upload Complete</h3>
-              <div className="space-y-2 text-sm text-gray-600">
-                <p>Total: {uploadResult.total} products</p>
-                <p className="text-green-600">Success: {uploadResult.success}</p>
-                <p className="text-red-600">Failed: {uploadResult.failed}</p>
-              </div>
-
-              {uploadResult.errors.length > 0 && (
-                <div className="mt-6 text-left bg-red-50 rounded-lg p-4 border border-red-100">
-                  <h4 className="text-sm font-semibold text-red-800 mb-2">Errors:</h4>
-                  <ul className="text-sm text-red-700 space-y-1 list-disc list-inside">
-                    {uploadResult.errors.map((error, idx) => (
-                      <li key={idx}>Row {error.row}: {error.message}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
+              <Button
+                onClick={handleClose}
+                className="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors"
+              >
+                Close & View Updates
+              </Button>
             </div>
-          )}
-        </div>
-
-        {/* Footer */}
-        <div className="flex justify-end gap-3 p-6 border-t bg-gray-50 rounded-b-lg shrink-0">
-          <button
-            onClick={handleClose}
-            className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-white hover:border-gray-400 transition-all"
-          >
-            {uploadResult ? 'Close' : 'Cancel'}
-          </button>
-          {!uploadResult && parsedData.length > 0 && (
-            <button
-              onClick={handleUpload}
-              disabled={uploading}
-              className="px-4 py-2 bg-[#d9a88a] text-white rounded-lg hover:bg-[#c99775] disabled:opacity-50 transition-all shadow-sm"
-            >
-              {uploading ? 'Uploading...' : `Upload ${parsedData.length} Valid Products`}
-            </button>
           )}
         </div>
       </div>

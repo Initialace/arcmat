@@ -26,23 +26,15 @@ export default function NotFound() {
       <div className="max-w-3xl w-full text-center space-y-6 md:space-y-8 relative z-10 flex flex-col items-center">
 
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-[#373a40]">
-          Oops! Page not found.
+          Coming Soon
         </h1>
 
         <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-xl mx-auto leading-relaxed">
-          The link you followed may have taken a spill, or the
-          <br className="hidden sm:block" /> page is no longer available.
+          We’re working on something exciting. Stay tuned.
+          <br className="hidden sm:block" /> This feature is currently under development and will be available soon.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2">
-          <Button
-            href="/contact-us"
-            text="Contact Support"
-            className="w-full sm:w-auto px-8 py-3 sm:px-10 sm:py-4
-              bg-[#f2f4f7] text-[#4b5563] text-base sm:text-lg font-medium
-              hover:bg-gray-200"
-          />
-
           <Button
             href="/"
             text="Home Page"

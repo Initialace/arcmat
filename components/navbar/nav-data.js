@@ -1,7 +1,7 @@
 export const navItems = [
     {
         name: "New",
-        image: "https://images.unsplash.com/photo-1556912173-3bb406ef7e77?w=400",
+        image: "/mega-Images/new.jpg",
         isSpecial: true,
         hasDropdown: true,
         categories: [
@@ -50,20 +50,12 @@ export const navItems = [
                     ["Interior Paints", "Exterior Paints", "Wallpapers", "Wall Panels"],
                     ["Texture Paints", "Cladding", "Veneers", "Laminates"]
                 ]
-            },
-            {
-                name: "Floor Finishes",
-                hasSubmenu: true,
-                links: [
-                    ["Tiles", "Marble & Granite", "Wooden Flooring", "Vinyl Flooring"],
-                    ["Carpets & Rugs", "Epoxy Flooring", "Outdoor Decking", "Skirting"]
-                ]
             }
         ]
     },
     {
         name: "Door & Windows",
-        image: "/mega-Images/Door and window.png",
+        image: "/mega-Images/Door.png",
         hasDropdown: true,
         categories: [
             {

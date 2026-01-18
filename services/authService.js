@@ -5,7 +5,7 @@ const authService = {
         const payload = {
             name: userData.name.trim(),
             email: userData.email.toLowerCase(),
-            mobile: Number(userData.mobile),
+            mobile: userData.mobile,
             password: userData.password,
             profile: userData.profile || '',
             role: userData.role,

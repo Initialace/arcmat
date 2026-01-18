@@ -20,6 +20,12 @@
             "href": "/dashboard/categories"
         },
         {
+            "id": "profile",
+            "label": "Profile",
+            "icon": "User",
+            "href": "/profile"
+        },
+        {
             "id": "help",
             "label": "Help",
             "icon": "HelpCircle",

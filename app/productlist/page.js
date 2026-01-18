@@ -6,10 +6,11 @@ import ProductFilterBar from "@/components/sections/ProductFilterBar";
 import ProductSidebar from "@/components/sections/ProductSidebar";
 import ProductCard from "@/components/cards/ProductCard";
 import Container from "@/components/ui/Container";
-import productsData from './data.json';
 import Footer from "@/components/layouts/Footer";
 import Button from "@/components/ui/Button";
 import Image from "next/image";
+import { useGetProducts } from "@/hooks/useProduct";
+import { Loader2 } from "lucide-react";
 
 export default function ProductListPage() {
     const [selectedCategory, setSelectedCategory] = useState("All");
@@ -26,14 +27,29 @@ export default function ProductListPage() {
         }
     });
 
+    const { data: apiData, isLoading } = useGetProducts();
+    const products = apiData?.data?.data || [];
+
     const filteredAndSortedProducts = useMemo(() => {
-        let result = [...productsData, ...productsData, ...productsData, ...productsData, ...productsData];
+        let result = [...products];
 
         if (selectedCategory !== "All") {
-            result = result.filter(p => p.subtitle.toLowerCase().includes(selectedCategory.toLowerCase()) || p.brand.toLowerCase().includes(selectedCategory.toLowerCase()));
-        }
+            result = result.filter(p => {
+                const name = p.product_name || p.name || '';
+                const brand = p.brand || '';
+                const subtitle = p.sort_description || p.subtitle || '';
 
-        if (activeFilters.toggles.commercial) {
+                // Allow filtering by checking if selectedCategory matches name, brand, subtitle 
+                // OR exists in the parent_category array
+                const inStaticFields = name.toLowerCase().includes(selectedCategory.toLowerCase()) ||
+                    brand.toLowerCase().includes(selectedCategory.toLowerCase()) ||
+                    subtitle.toLowerCase().includes(selectedCategory.toLowerCase());
+
+                const categories = Array.isArray(p.parent_category) ? p.parent_category : [];
+                const inCategories = categories.some(cat => String(cat).toLowerCase() === selectedCategory.toLowerCase());
+
+                return inStaticFields || inCategories;
+            });
         }
 
         if (activeFilters.brands.length > 0) {
@@ -41,7 +57,7 @@ export default function ProductListPage() {
         }
 
         return result;
-    }, [selectedCategory,  activeFilters]);
+    }, [products, selectedCategory, activeFilters]);
 
     const displayedProducts = useMemo(() => {
         return filteredAndSortedProducts.slice(0, visibleItems);
@@ -68,16 +84,23 @@ export default function ProductListPage() {
                 </div>
 
                 <main className="flex-1">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-x-4 gap-y-8">
-                        {displayedProducts.map((product, i) => (
-                            <ProductCard key={i} product={product} />
-                        ))}
-                    </div>
+                    {isLoading ? (
+                        <div className="flex flex-col items-center justify-center py-20">
+                            <Loader2 className="w-10 h-10 text-[#e09a74] animate-spin mb-4" />
+                            <p className="text-gray-500 font-medium">Loading products...</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-x-4 gap-y-8">
+                            {displayedProducts.map((product, i) => (
+                                <ProductCard key={product._id || product.id || i} product={product} />
+                            ))}
+                        </div>
+                    )}
 
                     {displayedProducts.length < filteredAndSortedProducts.length && (
                         <div className="flex justify-center mt-12 mb-8">
                             <Button
-                            text="Load more products"
+                                text="Load more products"
                                 onClick={() => setVisibleItems(prev => prev + 10)}
                                 className="px-10 py-3 border-2 border-gray-200 rounded-2xl font-bold bg-[#e09a74] hover:bg-white hover:border-[#e09a74] text-white hover:text-[#e09a74] transition-all transform active:scale-95 shadow-sm"
                             >
@@ -130,11 +153,11 @@ export default function ProductListPage() {
                         </div>
                         <div className="p-4 border-t">
                             <Button
-                            text="Show Results"
+                                text="Show Results"
                                 onClick={() => setDrawerOpen(false)}
                                 className="w-full py-3 bg-[#e09a74] hover:bg-white hover:text-[#e09a74] hover:border-[#e09a74] border text-white font-bold rounded-xl shadow-lg active:scale-95 transition-transform"
                             >
-                                
+
                             </Button>
                         </div>
                     </div>

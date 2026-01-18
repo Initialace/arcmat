@@ -6,6 +6,9 @@ import Button from '../ui/Button';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Autoplay } from 'swiper/modules';
+import { useAuth } from '@/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { toast } from '../ui/Toast';
 
 const heroBannerImages = [
   {
@@ -27,6 +30,17 @@ const heroBannerImages = [
 ];
 
 const HeroSection = () => {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+
+  const handleCTAClick = () => {
+    if (isAuthenticated) {
+      toast.info("You’re logged in. No action needed.");
+    } else {
+      router.push('/auth/register');
+    }
+  };
+
   return (
     <section className="relative w-full h-auto min-h-[80vh] sm:min-h-screen overflow-hidden">
       <Swiper
@@ -72,11 +86,11 @@ const HeroSection = () => {
         <div className="flex gap-4 flex-wrap justify-center mt-4">
           <Button
             text="Join for free"
-            href="/auth/login"
+            onClick={handleCTAClick}
             className="px-6 py-3 bg-white text-[16px] text-[#4D4E58] hover:bg-gray-100 hover:scale-105"
           />
           <Button
-            href="/auth/register"
+            onClick={handleCTAClick}
             text="Become a Brand Partner"
             className="px-6 py-3 bg-white text-[16px] text-[#4D4E58] hover:bg-gray-100 hover:scale-105"
           />

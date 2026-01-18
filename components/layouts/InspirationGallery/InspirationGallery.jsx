@@ -77,9 +77,9 @@ const InspirationGallery = () => {
             </Container>
 
             {selectedProduct && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={closeModal}>
+                <div className="fixed inset-0 z-150 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm" onClick={closeModal}>
                     <div
-                        className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto flex flex-col md:flex-row relative animate-in fade-in zoom-in duration-300"
+                        className="bg-white rounded-xl shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col relative animate-in fade-in zoom-in duration-300"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <button
@@ -89,7 +89,7 @@ const InspirationGallery = () => {
                             <Image src="/Icons/icons8-close.svg" alt="Close" width={24} height={24} className="w-6 h-6" />
                         </button>
 
-                        <div className="w-full md:w-1/2 h-64 md:h-auto relative bg-gray-100">
+                        <div className="w-full h-96 relative bg-gray-100">
                             <img
                                 src={selectedProduct.image}
                                 alt={selectedProduct.description}
@@ -97,18 +97,10 @@ const InspirationGallery = () => {
                             />
                         </div>
 
-                        <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
-                            <span className="font-bold text-[#d69e76] text-xl italic tracking-wide mb-2">{selectedProduct.company}</span>
-                            <h3 className="text-3xl font-bold text-gray-900 mb-4">Inspiration Product</h3>
-                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">{selectedProduct.description}</p>
-
-                            <div className="flex gap-4 items-center">
-                                <Button
-                                    text="Contact Supplier"
-                                    className="bg-[#e09a74] hover:bg-white hover:text-[#e09a74] border-[#e09a74] border text-white font-medium py-3 px-8 h-auto shadow-sm text-lg"
-                                />
-                                <Image src="/Icons/Heart.svg" alt="Share" width={24} height={24} className="w-6 h-6" />
-                            </div>
+                        <div className="w-full p-6 text-center">
+                            <span className="font-bold text-[#d69e76] text-2xl italic tracking-wide">
+                                {selectedProduct.company}
+                            </span>
                         </div>
                     </div>
                 </div>
